@@ -2,10 +2,90 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>まわりとわたし</title>
+  <title>うたの創作サイト - 小説一覧</title>
+  <style>
+    body {
+      font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
+      background: #fdfdfd;
+      color: #333;
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+      line-height: 1.8;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #0066cc;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    h1 {
+      font-size: 2em;
+      margin-bottom: 0.2em;
+    }
+    h2 {
+      border-bottom: 2px solid #ccc;
+      margin-top: 2em;
+    }
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    ul li {
+      margin-bottom: 15px;
+    }
+    .tags {
+      font-size: 0.9em;
+      color: #555;
+    }
+    .chapters li {
+      margin-left: 15px;
+    }
+  </style>
 </head>
 <body>
-  <h1>ようこそ！</h1>
-  <p>ここに小説や絵を載せていきます。</p>
+  <header>
+    <h1>うたの創作サイト</h1>
+    <p>漫画・小説・記録のいろいろ</p>
+    <nav>
+      <a href="index.html">トップ</a> |
+      <a href="novel-list.html">小説</a> |
+      <a href="manga.html">漫画</a> |
+      <a href="diary.html">日記</a> |
+      <a href="about.html">このサイトについて</a>
+    </nav>
+  </header>
+
+  <h2>小説一覧</h2>
+  <ul id="novel-list">
+    <!-- JavaScript でここに作品が追加される -->
+  </ul>
+
+  <script>
+    fetch('novels.json')
+      .then(response => response.json())
+      .then(data => {
+        const ul = document.getElementById('novel-list');
+        data.forEach(novel => {
+          const li = document.createElement('li');
+          li.innerHTML = `
+            <h3>${novel.title}</h3>
+            <p>${novel.description}</p>
+            <p class="tags">タグ: ${novel.tags.join(', ')}</p>
+            <ul class="chapters">
+              ${novel.chapters.map(ch => `<li><a href="${ch.url}">${ch.title}</a></li>`).join('')}
+            </ul>
+          `;
+          ul.appendChild(li);
+        });
+      })
+      .catch(err => console.error('JSON 読み込み失敗:', err));
+  </script>
 </body>
 </html>

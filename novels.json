@@ -1,0 +1,19 @@
+[
+  {
+    "title": "サンプル小説1",
+    "description": "これはサンプル小説です。ここにあらすじを書きます。",
+    "tags": ["ファンタジー", "冒険"],
+    "chapters": [
+      {"title": "第一章：出会い", "url": "novels/sample1-ch1.html"},
+      {"title": "第二章：旅立ち", "url": "novels/sample1-ch2.html"}
+    ]
+  },
+  {
+    "title": "サンプル小説2",
+    "description": "二つ目のサンプル小説です。短いあらすじ。",
+    "tags": ["恋愛", "日常"],
+    "chapters": [
+      {"title": "第一章：はじまり", "url": "novels/sample2-ch1.html"}
+    ]
+  }
+]

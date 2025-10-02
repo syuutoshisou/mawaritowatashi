@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>小説一覧 - うたの創作サイト</title>
+  <style>
+    body { font-family: "Yu Gothic", sans-serif; max-width: 800px; margin: auto; line-height: 1.8; }
+    header { text-align: center; margin-bottom: 30px; }
+    nav a { margin: 0 10px; text-decoration: none; color: #0066cc; }
+    nav a:hover { text-decoration: underline; }
+    ul { list-style: none; padding-left: 0; }
+    li { margin-bottom: 20px; }
+    .tags { font-size: 0.9em; color: #555; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>小説一覧</h1>
+    <nav>
+      <a href="index.html">トップ</a> |
+      <a href="novel-list.html">小説</a> |
+      <a href="about.html">このサイトについて</a>
+    </nav>
+  </header>
+
+  <ul id="novel-list"></ul>
+
+  <script>
+    fetch('novels.json')
+      .then(response => response.json())
+      .then(data => {
+        const ul = document.getElementById('novel-list');
+        data.forEach(novel => {
+          const li = document.createElement('li');
+          li.innerHTML = `
+            <h2>${novel.title}</h2>
+            <p>${novel.description}</p>
+            <p class="tags">タグ: ${novel.tags.join(', ')}</p>
+            <ul>
+              ${novel.chapters.map(ch => `<li><a href="${ch.url}">${ch.title}</a></li>`).join('')}
+            </ul>
+          `;
+          ul.appendChild(li);
+        });
+      })
+      .catch(err => console.error('JSON 読み込み失敗:', err));
+  </script>
+</body>
+</html>
